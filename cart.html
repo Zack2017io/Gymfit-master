@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gymfit Training Classes</title>
+    <style>
+        /* Styles for cart */
+        #cart {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 25px;
+        }
+
+        #cart ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        /* Styles for classes */
+        .class {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Gymfit Training Classes</h1>
+    <div class="class">
+        <input type="checkbox" id="class1" value="Class 1">
+        <label for="class1">Class 1</label>
+    </div>
+    <div class="class">
+        <input type="checkbox" id="class2" value="Class 2">
+        <label for="class2">Class 2</label>
+    </div>
+    <div class="class">
+        <input type="checkbox" id="class3" value="Class 3">
+        <label for="class3">Class 3</label>
+    </div>
+
+    <div id="cart">
+        <h2>Cart</h2>
+        <ul id="cart-items">
+            <!-- Cart items will be dynamically added here -->
+        </ul>
+    </div>
+
+    <script>
+        // Function to add selected class to the cart
+        function addToCart() {
+            var cartItems = document.getElementById("cart-items");
+            var classes = document.getElementsByClassName("class");
+            
+            // Loop through all classes
+            for (var i = 0; i < classes.length; i++) {
+                var checkbox = classes[i].querySelector("input[type='checkbox']");
+                
+                // If class is checked, add it to the cart
+                if (checkbox.checked) {
+                    var className = checkbox.value;
+                    var listItem = document.createElement("li");
+                    listItem.textContent = className;
+                    cartItems.appendChild(listItem);
+                }
+            }
+        }
+    </script>
+
+    <!-- Event listener to add class to cart when checkbox is clicked -->
+    <script>
+        var checkboxes = document.querySelectorAll("input[type='checkbox']");
+        checkboxes.forEach(function(checkbox) {
+            checkbox.addEventListener("change", addToCart);
+        });
+    </script>
+</body>
+</html>
