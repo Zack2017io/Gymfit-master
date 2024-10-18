@@ -4,39 +4,208 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up or Login</title>
+    
+    <!-- FontAwesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-RE/OQQYyGCE6jib/ihP5FY/jho+JAwR/4p2U3xpfV15eeuiq/nxQbcAF61ncKDgaYn9dLb7Br5vV5ChM2hC15Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <!-- Bootstrap for styling -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/font-awesome.css">
-    <link rel="stylesheet" href="assets/css/templatemo-training-studio.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <!-- SweetAlert2 for alerts -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
+
+    <!-- Example in auth.html or any HTML file -->
+<script>
+    // Firebase configuration using environment variables from Netlify
+    const firebaseConfigApp = {
+      apiKey: `${FIREBASE_API_KEY}`, // These will be injected at build time
+      authDomain: `${FIREBASE_AUTH_DOMAIN}`,
+      projectId: `${FIREBASE_PROJECT_ID}`,
+      storageBucket: `${FIREBASE_STORAGE_BUCKET}`,
+      messagingSenderId: `${FIREBASE_MESSAGING_SENDER_ID}`,
+      appId: `${FIREBASE_APP_ID}`
+    };
+  
+    // Initialize Firebase
+    const App = firebase.initializeApp(firebaseConfig);
+    const Auth = firebase.auth();
+  </script>
+  
+
+
+    <style>
+       /* Custom styles for buttons */
+.btn-custom {
+    background-color: darkorange; /* Set button color */
+    color: white; /* Text color */
+    border-radius: 50px; /* Make buttons fully rounded */
+    padding: 10px 20px; /* Add padding for a better look */
+    border: none; /* Remove border */
+    font-size: 16px;
+}
+
+.btn-custom:hover {
+    background-color: orangered; /* Darker shade on hover */
+}
+
+/* Style for the frame containing the form */
+.login-frame {
+    background-color: rgba(255, 255, 255, 0.8); /* Slightly transparent white background */
+    padding: 40px;
+    border-radius: 15px; /* Rounded frame corners */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Shadow for the frame */
+    max-width: 400px;
+    width: 100%; /* Make sure the frame takes 100% of the max-width */
+    text-align: left;
+}
+
+/* Fullscreen video background */
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.bg-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%; /* Make sure video covers the full width */
+    height: 100%; /* Make sure video covers the full height */
+    object-fit: cover; /* Ensures the video covers the entire background */
+    z-index: -1; /* Make sure video stays behind other elements */
+}
+
+.container {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 100vh; /* Make the container take full viewport height */
+    padding: 0 20px; /* Add some padding to avoid touching edges */
+}
+
+    </style>
 </head>
 <body>
-    <h2>Sign Up</h2>
-    <form id="signupForm">
-        <input type="email" name="email" placeholder="Email" required>
-        <input type="password" name="password" placeholder="Password" required>
-        <button type="submit">Sign Up</button>
-    </form>
 
-    <h2>Login</h2>
-    <form id="loginForm">
-        <input type="email" name="email" placeholder="Email" required>
-        <input type="password" name="password" placeholder="Password" required>
-        <button type="submit">Login</button>
-    </form>
+    <!-- Background Video -->
+    <video class="bg-video" autoplay loop muted>
+        <source src="C:\Users\isaac\Downloads\Compressed\Gymfit-master\assets\images\Untitled video - Made with Clipchamp.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <div class="container">
+        <div class="login-frame">
+            <h2>Sign Up to Gymfit</h2>
+            <form id="signupForm" class="mb-4">
+                <div class="input-group mb-3">
+                    <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                    <input type="email" class="form-control" name="email" placeholder="Email" required>
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                    <input type="password" class="form-control" name="password" placeholder="Password" required>
+                </div>
+                <button type="submit" class="btn btn-custom">Sign Up <i class="fas fa-user-plus"></i></button>
+            </form>
+
+            <h2>Login to Gymfit</h2>
+            <form id="loginForm">
+                <div class="input-group mb-3">
+                    <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                    <input type="email" class="form-control" name="email" placeholder="Email" required>
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                    <input type="password" class="form-control" name="password" placeholder="Password" required>
+                </div>
+                <button type="submit" class="btn btn-custom">Login <i class="fas fa-sign-in-alt"></i></button>
+            </form>
+        </div>
+    </div>
 
     <script>
+        // Handle signup form submission
         document.getElementById('signupForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             // Add your signup logic here
+            Swal.fire({
+                title: "Good job!",
+                text: "Thank you for signing up!",
+                icon: "success"
+            });
         });
 
+        // Handle login form submission
         document.getElementById('loginForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             // Add your login logic here
+            Swal.fire({
+                title: "Good job!",
+                text: "Logged in successfully!",
+                icon: "success"
+            });
         });
     </script>
+       <script>
+        // Your Firebase configuration
+        const firebaseConfig = {
+            apiKey: "YOUR_FIREBASE_API_KEY",
+            authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_PROJECT_ID.appspot.com",
+            messagingSenderId: "YOUR_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+    
+        // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+    
+        // Function to handle user registration
+        document.getElementById('register-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission
+            const email = document.getElementById('email').value; // Get the email
+            const password = document.getElementById('password').value; // Get the password
+    
+            auth.createUserWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    // Registration successful
+                    const user = userCredential.user;
+                    console.log('User registered:', user);
+                    // Optionally store additional user data in Firestore
+                })
+                .catch((error) => {
+                    // Handle registration errors
+                    console.error('Error registering:', error.message);
+                });
+        });
+    
+        // Function to handle user login
+        document.getElementById('login-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission
+            const email = document.getElementById('email').value; // Get the email
+            const password = document.getElementById('password').value; // Get the password
+    
+            auth.signInWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    // Login successful
+                    const user = userCredential.user;
+                    console.log('User logged in:', user);
+                    // Redirect or show logged-in user dashboard
+                })
+                .catch((error) => {
+                    // Handle login errors
+                    console.error('Error logging in:', error.message);
+                });
+        });
+    </script>
+
+    
+    
 </body>
 </html>
